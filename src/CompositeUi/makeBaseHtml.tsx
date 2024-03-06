@@ -1,5 +1,6 @@
 import React from "react"
 import { CompositeUiProps } from "./types"
+import useStyleApplicator from "./useStyleApplicator"
 
 const valueMap: Record<CompositeUiProps['type'], string> = {
   button: 'children',
@@ -11,16 +12,17 @@ const valueMap: Record<CompositeUiProps['type'], string> = {
 }
 
 const makeBaseHtml = (tag: string) => (props: CompositeUiProps) => {
-  const value = props.data?.value || props.data?.title || props.value
-  const valueKey = valueMap[props.type]
-
-  const { webStyle } = props.style
+  const { style, type, data, value } = props
+  const renderValue = data?.value || data?.title || value
+  const valueKey = valueMap[type]
+  const { computedStyles, ...handlers } = useStyleApplicator(style)
 
   return (
     <>
       {React.createElement(tag, {
-        [valueKey]: value,
-        style: webStyle,
+        [valueKey]: renderValue,
+        style: computedStyles,
+        ...handlers
       })}
     </>
   )

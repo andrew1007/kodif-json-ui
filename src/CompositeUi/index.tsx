@@ -2,6 +2,7 @@ import React from "react";
 import Container from "./Container"
 import makeBaseHtml from "./makeBaseHtml";
 import { CompositeUiProps } from "./types";
+import useStyleApplicator from "./useStyleApplicator";
 
 const compositeMap: Record<CompositeUiProps['type'], React.FC<any>> = {
   container: Container,
@@ -13,16 +14,17 @@ const compositeMap: Record<CompositeUiProps['type'], React.FC<any>> = {
 }
 
 const CompositeUi = (props: CompositeUiProps) => {
-  const { type } = props
+  const { type, style } = props
+  const { computedStyles, ...handlers } = useStyleApplicator(style)
 
   if (type === 'container') {
-    const { childUi, style } = props
+    const { childUi } = props
     return (
-      <Container style={style.webStyle}>
+      <div style={computedStyles} {...handlers}>
         {childUi.map((childProps, idx) => {
           return <CompositeUi key={idx} {...childProps} />
         })}
-      </Container>
+      </div>
     )
   }
 
