@@ -1,6 +1,5 @@
 export type CompositeUiProps = {
-  type: 'container' | 'image' | 'text' | 'button' |
-  'textarea' | 'textfield';
+  type: 'container' | 'image' | 'text' | 'button' | 'textarea' | 'textfield';
   children: CompositeUiProps[]
   style: {
     webStyle: React.CSSProperties

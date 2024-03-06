@@ -41,7 +41,7 @@ const makeBaseHtml = (tag: string) => (props: CompositeUiProps) => {
   const { style, type } = props
   const { computedStyles, ...handlers } = useStyleApplicator(style)
   const computedProps = propComputeMap[type](props)
-  // console.log(computedProps, type)
+
   return (
     <>
       {React.createElement(tag, {

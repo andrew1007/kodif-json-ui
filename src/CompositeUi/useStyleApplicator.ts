@@ -22,10 +22,16 @@ const useStyleApplicator = (params: Params) => {
     })
   );
 
+  type Ret = {
+    computedStyles: typeof computedStyles;
+  } & {
+    [eventHandler: string]: () => void;
+  };
+
   return {
     computedStyles,
     ...handlers,
-  };
+  } as Ret;
 };
 
 export default useStyleApplicator;
