@@ -6,7 +6,7 @@ import useStyleApplicator from "./useStyleApplicator";
 const compositeMap: Partial<Record<CompositeUiProps['type'], React.FC<any>>> = {
   image: makeBaseHtml('img'),
   button: makeBaseHtml('button'),
-  text: makeBaseHtml('span'),
+  text: makeBaseHtml('div'),
   textarea: makeBaseHtml('textarea'),
   textfield: makeBaseHtml('input'),
 }

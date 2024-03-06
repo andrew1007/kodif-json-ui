@@ -2,25 +2,50 @@ import React from "react"
 import { CompositeUiProps } from "./types"
 import useStyleApplicator from "./useStyleApplicator"
 
-const valueMap: Record<CompositeUiProps['type'], string> = {
-  button: 'children',
-  image: 'src',
-  text: 'children',
-  textarea: 'value',
-  textfield: 'value',
-  container: 'children'
+type Fn = (props: CompositeUiProps) => Record<string, any>
+
+const propComputeMap: Record<CompositeUiProps['type'], Fn> = {
+  button: (props) => {
+    return {
+      children: props.data?.title
+    }
+  },
+  image: (props) => {
+    return {
+      src: props.value
+    }
+  },
+  text: (props) => {
+    return {
+      children: props.data.value,
+    }
+  },
+  textarea: (props) => {
+    console.log(props)
+    return {
+      placeholder: props.data.placeholder,
+      children: props.data.value,
+    }
+  },
+  textfield: (props) => {
+    console.log(props)
+    return {
+      placeholder: props.data.placeholder,
+      children: props.data.value,
+    }
+  },
+  container: () => ({})
 }
 
 const makeBaseHtml = (tag: string) => (props: CompositeUiProps) => {
-  const { style, type, data, value } = props
-  const renderValue = data?.value || data?.title || value
-  const valueKey = valueMap[type]
+  const { style, type } = props
   const { computedStyles, ...handlers } = useStyleApplicator(style)
-
+  const computedProps = propComputeMap[type](props)
+  // console.log(computedProps, type)
   return (
     <>
       {React.createElement(tag, {
-        [valueKey]: renderValue,
+        ...computedProps,
         style: computedStyles,
         ...handlers
       })}

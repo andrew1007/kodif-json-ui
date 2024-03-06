@@ -10,5 +10,6 @@ export type CompositeUiProps = {
   data: {
     value?: string;
     title?: string;
+    placeholder?: string;
   }
 }
