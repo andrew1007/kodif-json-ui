@@ -1,16 +1,14 @@
 import React from "react";
-import Container from "./Container"
 import makeBaseHtml from "./makeBaseHtml";
 import { CompositeUiProps } from "./types";
 import useStyleApplicator from "./useStyleApplicator";
 
-const compositeMap: Record<CompositeUiProps['type'], React.FC<any>> = {
-  container: Container,
+const compositeMap: Partial<Record<CompositeUiProps['type'], React.FC<any>>> = {
   image: makeBaseHtml('img'),
   button: makeBaseHtml('button'),
   text: makeBaseHtml('span'),
   textarea: makeBaseHtml('textarea'),
-  textfield: makeBaseHtml('textarea'),
+  textfield: makeBaseHtml('input'),
 }
 
 const CompositeUi = (props: CompositeUiProps) => {
@@ -18,10 +16,10 @@ const CompositeUi = (props: CompositeUiProps) => {
   const { computedStyles, ...handlers } = useStyleApplicator(style)
 
   if (type === 'container') {
-    const { childUi } = props
+    const { children } = props
     return (
       <div style={computedStyles} {...handlers}>
-        {childUi.map((childProps, idx) => {
+        {children.map((childProps, idx) => {
           return <CompositeUi key={idx} {...childProps} />
         })}
       </div>
@@ -29,7 +27,7 @@ const CompositeUi = (props: CompositeUiProps) => {
   }
 
   const CurrentComponent = compositeMap[type]
-  return <CurrentComponent {...props} />
+  return CurrentComponent ? <CurrentComponent {...props} /> : null
 }
 
 export default CompositeUi

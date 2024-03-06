@@ -15,7 +15,7 @@
                     }
                 }
             },
-            "childUi": [{
+            "children": [{
                     "type": "container",
                     "style": {
                         "webStyle": {
@@ -33,7 +33,7 @@
                             }
                         }
                     },
-                    "childUi": [{
+                    "children": [{
                         "type": "image",
                         "value": "/img/uploadimg.png",
                         "style": {
@@ -65,7 +65,7 @@
                             }
                         }
                     },
-                    "childUi": [{
+                    "children": [{
                         "type": "text",
                         "data": {
                             "value": "Something Went Wrong"
@@ -101,7 +101,7 @@
                     }
                 }
             },
-            "childUi": [{
+            "children": [{
                     "type": "text",
                     "data": {
                         "value": "Please leave us the email associated with your Nom Nom account and a brief description of the issue."
@@ -177,7 +177,7 @@
                             "border": "0.5px solid "
                         }
                     },
-                    "childUi": [{
+                    "children": [{
                         "type": "textfield",
                         "data": {
                             "placeholder": null,
@@ -228,7 +228,7 @@
                             "padding": "0px"
                         }
                     },
-                    "childUi": [{
+                    "children": [{
                         "type": "textarea",
                         "data": {
                             "placeholder": "",
@@ -260,7 +260,7 @@
                     "onHover": {}
                 }
             },
-            "childUi": [{
+            "children": [{
                 "type": "button",
                 "data": {
                     "title": "Submit"
