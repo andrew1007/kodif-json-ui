@@ -12,13 +12,13 @@ const compositeMap: Partial<Record<CompositeUiProps['type'], React.FC<any>>> = {
 }
 
 const CompositeUi = (props: CompositeUiProps) => {
-  const { type, style } = props
-  const { computedStyles, ...handlers } = useStyleApplicator(style)
+  const { type, } = props
+  const { style, className } = useStyleApplicator(props.style)
 
   if (type === 'container') {
     const { children } = props
     return (
-      <div style={computedStyles} {...handlers}>
+      <div style={style} className={className}>
         {children.map((childProps, idx) => {
           return <CompositeUi key={idx} {...childProps} />
         })}

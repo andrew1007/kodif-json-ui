@@ -4,7 +4,7 @@ import useStyleApplicator from "./useStyleApplicator"
 
 type Fn = (props: CompositeUiProps) => Record<string, any>
 
-const propComputeMap: Record<CompositeUiProps['type'], Fn> = {
+const propComputeMap: Partial<Record<CompositeUiProps['type'], Fn>> = {
   button: (props) => {
     return {
       children: props.data?.title
@@ -34,20 +34,19 @@ const propComputeMap: Record<CompositeUiProps['type'], Fn> = {
       children: props.data.value,
     }
   },
-  container: () => ({})
 }
 
 const makeBaseHtml = (tag: string) => (props: CompositeUiProps) => {
-  const { style, type } = props
-  const { computedStyles, ...handlers } = useStyleApplicator(style)
-  const computedProps = propComputeMap[type](props)
+  const { type } = props
+  const { style, className } = useStyleApplicator(props.style)
+  const computedProps = propComputeMap[type]?.(props)
 
   return (
     <>
       {React.createElement(tag, {
         ...computedProps,
-        style: computedStyles,
-        ...handlers
+        style,
+        className,
       })}
     </>
   )
