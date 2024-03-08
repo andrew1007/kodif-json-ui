@@ -8,7 +8,7 @@ const customAction: Record<string, string> = {
   onFocus: ":focus",
 };
 
-export const jssToCSS = (jss: any) => {
+const jssToCSS = (jss: Record<string, any>) => {
   let cssString = "";
   for (const objectKey in jss) {
     cssString +=
@@ -21,13 +21,13 @@ export const jssToCSS = (jss: any) => {
   return cssString;
 };
 
-const initializeStyleSheet = (id: string, actions: any) => {
+const initializeStyleSheet = (className: string, actions: Record<string, any>) => {
   const styleEl = document.createElement("style");
   document.head.appendChild(styleEl);
   const styleSheet = styleEl.sheet as CSSStyleSheet;
 
   Object.entries(actions ?? {}).forEach(([action, jss]) => {
-    const selector = `.${id}${customAction[action]}`;
+    const selector = `.${className}${customAction[action]}`;
     styleSheet.insertRule(`${selector} {${jssToCSS(jss)}}`);
   });
 

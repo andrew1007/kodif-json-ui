@@ -21,14 +21,12 @@ const propComputeMap: Partial<Record<CompositeUiProps['type'], Fn>> = {
     }
   },
   textarea: (props) => {
-    console.log(props)
     return {
       placeholder: props.data.placeholder,
       children: props.data.value,
     }
   },
   textfield: (props) => {
-    console.log(props)
     return {
       placeholder: props.data.placeholder,
       children: props.data.value,
