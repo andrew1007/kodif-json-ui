@@ -1,6 +1,6 @@
 import React from "react"
 import { CompositeUiProps } from "./types"
-import useStyleTransformer from "./useStyleApplicator"
+import useStyleTransformer from "./useStyleTransformer"
 
 type Fn = (props: CompositeUiProps) => Record<string, any>
 

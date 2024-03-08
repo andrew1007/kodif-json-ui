@@ -1,7 +1,7 @@
 import React from "react";
 import makeBaseHtml from "./makeBaseHtml";
 import { CompositeUiProps } from "./types";
-import useStyleTransformer from "./useStyleApplicator";
+import useStyleTransformer from "./useStyleTransformer";
 
 const compositeMap: Partial<Record<CompositeUiProps['type'], React.FC<CompositeUiProps>>> = {
   image: makeBaseHtml('img'),

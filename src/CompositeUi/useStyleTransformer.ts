@@ -59,7 +59,7 @@ const useStyleTransformer = (params: Params) => {
     return () => {
       sheet.remove();
     };
-  }, [actions, className]);
+  }, [actions, className, webStyle]);
 
   return {
     className,
