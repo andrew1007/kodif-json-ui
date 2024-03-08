@@ -1,7 +1,7 @@
 import React from "react";
 import makeBaseHtml from "./makeBaseHtml";
 import { CompositeUiProps } from "./types";
-import useStyleApplicator from "./useStyleApplicator";
+import useStyleTransformer from "./useStyleApplicator";
 
 const compositeMap: Partial<Record<CompositeUiProps['type'], React.FC<CompositeUiProps>>> = {
   image: makeBaseHtml('img'),
@@ -12,13 +12,13 @@ const compositeMap: Partial<Record<CompositeUiProps['type'], React.FC<CompositeU
 }
 
 const CompositeUi = (props: CompositeUiProps) => {
-  const { type, } = props
-  const { style, className } = useStyleApplicator(props.style)
+  const { type, style } = props
+  const { className } = useStyleTransformer(style)
 
   if (type === 'container') {
     const { children } = props
     return (
-      <div style={style} className={className}>
+      <div className={className}>
         {children.map((childProps, idx) => {
           return <CompositeUi key={idx} {...childProps} />
         })}

@@ -15,16 +15,25 @@ const jssToCSS = (jss: React.CSSProperties) => {
       objectKey.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`) +
       ": " +
       jss[objectKey as keyof React.CSSProperties] +
-      "!important;\n";
+      ";\n";
   }
 
   return cssString;
 };
 
-const initializeStyleSheet = (className: string, actions: Record<string, React.CSSProperties>) => {
+type InitializeStyleSheetParams = {
+  className: string;
+  actions: Record<string, React.CSSProperties>;
+  styles: React.CSSProperties;
+};
+
+const initializeStyleSheet = (params: InitializeStyleSheetParams) => {
+  const { actions, className, styles } = params;
   const styleEl = document.createElement("style");
   document.head.appendChild(styleEl);
   const styleSheet = styleEl.sheet as CSSStyleSheet;
+
+  styleSheet.insertRule(`.${className} {${jssToCSS(styles)}}`);
 
   Object.entries(actions ?? {}).forEach(([action, jss]) => {
     const selector = `.${className}${customAction[action]}`;
@@ -36,21 +45,25 @@ const initializeStyleSheet = (className: string, actions: Record<string, React.C
 
 const getRandomClassName = () => `a_${Math.random()}`.replace(/\./g, "");
 
-const useStyleApplicator = (params: Params) => {
+const useStyleTransformer = (params: Params) => {
   const { webStyle, actions } = params;
   const className = useMemo(getRandomClassName, []);
 
   useEffect(() => {
-    const sheet = initializeStyleSheet(className, actions);
+    const sheet = initializeStyleSheet({
+      className,
+      actions,
+      styles: webStyle,
+    });
+
     return () => {
       sheet.remove();
     };
   }, [actions, className]);
 
   return {
-    style: webStyle,
-    className: className,
+    className,
   };
 };
 
-export default useStyleApplicator;
+export default useStyleTransformer;
