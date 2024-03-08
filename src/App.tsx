@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 import CompositeUi from './CompositeUi';
 import { fetchViews } from './api';
+import { CompositeUiProps } from './CompositeUi/types';
 
 function App() {
-  const [views, setViews] = useState<any[]>([])
+  const [views, setViews] = useState<CompositeUiProps[]>([])
 
   useEffect(() => {
     fetchViews().then(res => {

@@ -3,7 +3,7 @@ import makeBaseHtml from "./makeBaseHtml";
 import { CompositeUiProps } from "./types";
 import useStyleApplicator from "./useStyleApplicator";
 
-const compositeMap: Partial<Record<CompositeUiProps['type'], React.FC<any>>> = {
+const compositeMap: Partial<Record<CompositeUiProps['type'], React.FC<CompositeUiProps>>> = {
   image: makeBaseHtml('img'),
   button: makeBaseHtml('button'),
   text: makeBaseHtml('div'),

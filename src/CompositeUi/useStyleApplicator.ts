@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { CompositeUiProps } from "./types";
 
 type Params = CompositeUiProps["style"];
@@ -8,20 +8,20 @@ const customAction: Record<string, string> = {
   onFocus: ":focus",
 };
 
-const jssToCSS = (jss: Record<string, any>) => {
+const jssToCSS = (jss: React.CSSProperties) => {
   let cssString = "";
   for (const objectKey in jss) {
     cssString +=
       objectKey.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`) +
       ": " +
-      jss[objectKey] +
+      jss[objectKey as keyof React.CSSProperties] +
       "!important;\n";
   }
 
   return cssString;
 };
 
-const initializeStyleSheet = (className: string, actions: Record<string, any>) => {
+const initializeStyleSheet = (className: string, actions: Record<string, React.CSSProperties>) => {
   const styleEl = document.createElement("style");
   document.head.appendChild(styleEl);
   const styleSheet = styleEl.sheet as CSSStyleSheet;
@@ -45,7 +45,7 @@ const useStyleApplicator = (params: Params) => {
     return () => {
       sheet.remove();
     };
-  }, [actions]);
+  }, [actions, className]);
 
   return {
     style: webStyle,
